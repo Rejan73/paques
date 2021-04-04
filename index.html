@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Joyeuses Paques</title>
+  <link rel="stylesheet" href="css/paques.css">
+  <script src="js/jquery-3.5.0.js"></script>
+</head>
+<body>
+<div>
+<div id="image" >
+  <img id="srcImage" src="img/jardin.jpg"/>
+</div>
+<div id="finish"  >
+  <img id="srcfinishImage" src="img/finish.jpg" />
+</div>  
+<div id="oeufs" >
+  <center>
+    <img id="srcOeuf" src="img/oeuf.png" />
+  </center>
+</div>  
+<div id="popin">
+  <center>
+    <h1>La chasse est ouverte ! &nbsp;&nbsp;</h1>
+    Nombre d'oeufs: <input id="nboeufs" type="number" value="10" maxlength="2" size="1"><br><br>
+    Taille des oeufs :  <select id="tailleOeuf">
+      <option value="10" selected>petit</option>
+      <option value="30" >moyen</option>
+      <option value="60" >gros</option>
+      <option value="200" >&eacute;norme</option>
+    </select>
+    <br/>
+    <br/>
+    <a href="#" class="button" onclick="play()">Play</a>
+    <br/>
+    <br/>
+  </center>
+</div>
+<div id="text">
+<center>
+<h1 style="font-size:50px;">JOYEUSES PAQUES !!!! </h1>
+</center>
+</div>
+
+</div> 
+<script>
+var maxOeufs=10;
+var taboeufs="";
+var cptFound=0;
+
+
+function findOeuf(i){
+  $('#oeuf'+i).hide();
+  cptFound++;
+  if (cptFound>=maxOeufs){
+    $("#image").hide();
+    $("#text").addClass("movementEffectUpToDown");
+  }
+}
+
+function play(){
+  $("#image").show();
+  maxOeufs=$("#nboeufs").val();
+  oeufSize = $("#tailleOeuf").val();
+  $("#popin").hide();
+
+  for (i=0;i<maxOeufs;i++){
+    
+    imgWidth = $("#srcImage").width();
+    imgHeight = $("#srcImage").height();
+    oeufLeft= Math.floor(Math.random() * imgWidth-oeufSize); 
+    oeufTop= Math.floor(Math.random() * imgHeight-oeufSize); 
+    taboeufs+='<img src="img/oeuf.png" id="oeuf'+i+'" class="oeuf" onclick="findOeuf('+i+');" style="left: '+oeufLeft+'px; top: '+oeufTop+'px; width: '+oeufSize+'px; height: '+oeufSize+'px;">';   
+  }
+  $("#oeufs").html(taboeufs);
+
+}
+
+</script> 
+</body>
+</html>    
